@@ -1,0 +1,806 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Родион Аветисов</title>
+<meta name="description" content="Родион Аветисов, ведущий digital project manager в performance. Опыт, кейсы и ИИ-инструменты.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+/* Layout: the whole site is one Telegram group chat. PM Copilot (bot) and Rodion speak on the left,
+   the visitor's button taps appear on the right. Sections are date-pill anchors in one feed. */
+:root {
+  --wp: url("wallpaper.svg");
+  --wall: #A9C79A;
+  --day-bg: rgba(40,66,30,.5); --day-ink: #FFFFFF; --kbd-bg: rgba(28,128,52,.58);
+  --bubble: #FFFFFF;
+  --mine: #E3F4D9;
+  --ink: #141A21;
+  --muted: #5B6672;
+  --label: #8A949F;
+  --line: #E3E8EE;
+  --tg: #2A8BD2;
+  --tg-ink: #FFFFFF;
+  --tg-soft: rgba(42,139,210,.12);
+  --rod: #C2571A;
+  --good: #1F8A55;
+  --bar: rgba(255,255,255,.92);
+  --panel: #EEF1F4;
+  --shadow: 0 1px 1px rgba(20,30,40,.07);
+
+  --f-display: "Onest", "Golos Text", system-ui, sans-serif;
+  --f-body: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-tg: -apple-system, "Segoe UI", Roboto, "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --col: 780px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --wall: #0E1410; --day-bg: rgba(0,0,0,.38); --day-ink: #E8EDF2; --kbd-bg: rgba(110,190,120,.22); --bubble: #1C2631; --mine: #2A4630;
+    --ink: #E8EDF2; --muted: #A3AEBA; --label: #76818D; --line: #2A3542;
+    --tg: #4FA6E6; --tg-ink: #0A1520; --tg-soft: rgba(79,166,230,.15); --rod: #F0955A; --good: #4CC487;
+    --bar: rgba(23,32,42,.92); --panel: #121A23; --shadow: 0 1px 1px rgba(0,0,0,.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --wall: #0E1410; --day-bg: rgba(0,0,0,.38); --day-ink: #E8EDF2; --kbd-bg: rgba(110,190,120,.22); --bubble: #1C2631; --mine: #2A4630;
+  --ink: #E8EDF2; --muted: #A3AEBA; --label: #76818D; --line: #2A3542;
+  --tg: #4FA6E6; --tg-ink: #0A1520; --tg-soft: rgba(79,166,230,.15); --rod: #F0955A; --good: #4CC487;
+  --bar: rgba(23,32,42,.92); --panel: #121A23; --shadow: 0 1px 1px rgba(0,0,0,.3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px)); }
+body {
+  margin: 0; color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5;
+  background-color: var(--wall);
+}
+body::before, body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+/* Telegram default wallpaper: 4-color gradient + doodle pattern in overlay */
+body::before { background: url("data:image/png;base64,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") 0 0 / 100% 100% no-repeat; }
+body::after { background: #000; opacity: .5; mix-blend-mode: overlay; -webkit-mask: var(--wp) center top / 420px auto repeat; mask: var(--wp) center top / 420px auto repeat; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body::before { opacity: .55; -webkit-mask: var(--wp) center top / 420px auto repeat; mask: var(--wp) center top / 420px auto repeat; }
+  :root:not([data-theme="light"]) body::after { display: none; }
+}
+:root[data-theme="dark"] body::before { opacity: .55; -webkit-mask: var(--wp) center top / 420px auto repeat; mask: var(--wp) center top / 420px auto repeat; }
+:root[data-theme="dark"] body::after { display: none; }
+a { color: var(--tg); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--tg); outline-offset: 2px; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+h2, h3, h4 { margin: 0; }
+
+/* top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bar); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.top-in { max-width: var(--col); margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px; }
+.ava { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-mono); font-weight: 500; font-size: 13px; background: var(--tg); color: var(--tg-ink); }
+.ava.rod { background: var(--rod); color: var(--tg-ink); font-family: var(--f-display); font-weight: 600; font-size: 14px; }
+.who { min-width: 0; display: grid; line-height: 1.25; }
+.who b { font-family: var(--f-display); font-weight: 600; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.who span { font-size: 13px; color: var(--muted); }
+.who span.live { color: var(--tg); }
+.dots i { display: inline-block; width: 4px; height: 4px; margin-left: 2px; border-radius: 50%; background: currentColor; vertical-align: middle; }
+.photo { position: relative; flex: none; width: 48px; height: 48px; padding: 0; border: 0; border-radius: 50%; overflow: hidden; cursor: zoom-in; background: linear-gradient(135deg, var(--rod), color-mix(in srgb, var(--rod) 55%, var(--tg))); transition: transform .15s ease; }
+.photo:hover { transform: scale(1.05); }
+.photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.photo span { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-family: var(--f-display); font-weight: 600; font-size: 17px; }
+.acts { margin-left: auto; flex: none; display: flex; align-items: center; gap: 6px; }
+.ico { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); transition: background .15s ease, color .15s ease; }
+.ico:hover { background: var(--tg-soft); color: var(--tg); }
+.top-cta { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 99px; background: var(--tg); color: var(--tg-ink); text-decoration: none; font-weight: 600; font-size: 15px; }
+.lightbox { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: 16px; background: rgba(8,14,20,.72); backdrop-filter: blur(6px); }
+.lightbox[hidden] { display: none; }
+.profile { position: relative; width: min(420px, 100%); max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain; border-radius: 16px; background: var(--panel); display: grid; gap: 8px; }
+.pf-head { display: grid; justify-items: center; gap: 2px; padding: 26px 16px 16px; background: var(--bubble); text-align: center; }
+.pf-photo { position: relative; width: 112px; height: 112px; margin-bottom: 10px; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, var(--rod), color-mix(in srgb, var(--rod) 55%, var(--tg))); }
+.pf-photo span { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-family: var(--f-display); font-weight: 600; font-size: 36px; }
+.pf-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.pf-head > b { font-family: var(--f-display); font-weight: 600; font-size: 19px; }
+.pf-head > span { font-size: 14px; color: var(--muted); }
+.pf-acts { width: 100%; margin-top: 14px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.pf-acts a, .pf-acts span { display: grid; justify-items: center; gap: 4px; padding: 10px 4px 8px; border-radius: 12px; border: 1px solid var(--line); background: var(--bubble); color: var(--tg); text-decoration: none; font-size: 13px; }
+.pf-acts a:hover { background: var(--tg-soft); }
+.pf-acts .pf-off { color: var(--label); }
+.pf-info, .pf-list { background: var(--bubble); }
+.pf-info li { display: grid; padding: 10px 18px; }
+.pf-info li + li { border-top: 1px solid var(--line); }
+.pf-info .v { font-size: 15px; color: var(--ink); text-decoration: none; }
+.pf-info a.v { color: var(--tg); }
+.pf-info .pf-muted-v { color: var(--muted); font-style: italic; }
+.pf-info .k { font-size: 13px; color: var(--label); }
+.pf-list li + li { border-top: 1px solid var(--line); }
+.pf-list a, .pf-list button { width: 100%; display: flex; align-items: center; gap: 18px; padding: 12px 18px; border: 0; background: none; color: var(--ink); text-decoration: none; text-align: left; font: 15px/1.35 var(--f-body); cursor: pointer; }
+.pf-list a svg, .pf-list button svg { flex: none; color: var(--muted); }
+.pf-list a:hover, .pf-list button:hover { background: var(--tg-soft); }
+.pf-list b { font-weight: 600; }
+.pf-list .danger, .pf-list .danger svg { color: #D9453A; }
+.pf-toast { position: sticky; bottom: 12px; justify-self: center; margin: -4px 12px 12px; padding: 9px 14px; border-radius: 10px; background: var(--ink); color: var(--bubble); font-size: 14px; text-align: center; }
+.pf-toast[hidden] { display: none; }
+.lb-close { position: absolute; top: 10px; right: 10px; z-index: 2; width: 36px; height: 36px; border-radius: 50%; border: 0; background: none; color: var(--muted); display: grid; place-items: center; cursor: pointer; }
+.lb-close:hover { background: var(--tg-soft); }
+
+/* feed */
+.feed { max-width: var(--col); margin: 0 auto; padding-inline: 16px; padding-block: 20px 120px; display: grid; gap: 8px; }
+.day { justify-self: center; margin-block: 18px 6px; font-size: 13px; font-weight: 500; padding: 3px 12px; border-radius: 99px; background: var(--day-bg); color: var(--day-ink); backdrop-filter: blur(4px); }
+.day:first-child { margin-top: 0; }
+
+.row { display: flex; align-items: flex-end; gap: 8px; min-width: 0; }
+.row > .ava { width: 34px; height: 34px; font-size: 11px; }
+.row > .ava.rod { font-size: 12px; }
+.row .stack { min-width: 0; display: grid; gap: 4px; flex: 1; justify-items: start; }
+.spacer { flex: none; width: 34px; }
+
+.msg { position: relative; max-width: 100%; min-width: 0; background: var(--bubble); border-radius: 16px; padding: 9px 14px 7px; box-shadow: var(--shadow); }
+.msg.last { border-bottom-left-radius: 4px; }
+.msg .name { display: block; font-size: 14px; font-weight: 600; color: var(--tg); margin-bottom: 2px; }
+.msg .name.r { color: var(--rod); }
+.msg .time { float: right; margin: 6px 0 -2px 12px; font-family: var(--f-mono); font-size: 11px; color: var(--label); }
+.msg.wide { width: 100%; }
+.msg p + p { margin-top: 10px; }
+.msg h3 { font-family: var(--f-display); font-weight: 800; font-size: 22px; line-height: 1.2; letter-spacing: -.01em; margin-bottom: 6px; text-wrap: balance; }
+.msg h4 { font-family: var(--f-display); font-weight: 600; font-size: 17px; margin: 14px 0 6px; }
+.lede { color: var(--muted); }
+.em { font-style: italic; color: var(--muted); }
+
+.you { justify-self: end; max-width: 80%; background: var(--mine); border-radius: 16px 16px 4px 16px; padding: 7px 12px 6px; box-shadow: var(--shadow); }
+.you .time { margin-left: 10px; font-family: var(--f-mono); font-size: 11px; color: var(--good); }
+.you .time::after { content: " ✓✓"; }
+
+/* lists */
+.dash li { position: relative; padding-left: 18px; }
+.dash li + li { margin-top: 6px; }
+.dash li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--label); }
+.ticks li { position: relative; padding-left: 24px; }
+.ticks li + li { margin-top: 6px; }
+.ticks li::before { content: "✓"; position: absolute; left: 2px; color: var(--good); font-weight: 600; }
+.defs li + li { margin-top: 8px; }
+.defs b { font-weight: 600; }
+
+/* hero */
+.hero { padding: 20px 22px 10px; display: grid; gap: 14px; }
+.hero .meta { font-size: 14px; color: var(--muted); }
+.hero .meta b { color: var(--ink); font-weight: 600; }
+.hero h1 { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: clamp(32px, 5.4vw, 52px); line-height: 1.04; letter-spacing: -.025em; text-wrap: balance; }
+.hero h1 s { text-decoration-thickness: .08em; text-decoration-color: var(--tg); color: var(--muted); }
+.hero .lede { max-width: 62ch; }
+.lede-stack { display: grid; gap: 6px; }
+.lede-stack p + p { margin-top: 0; }
+.stats-k { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--label); margin-bottom: -8px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--line); }
+.stats div { padding: 10px 12px 10px 0; min-width: 0; }
+.stats div + div { padding-left: 12px; border-left: 1px solid var(--line); }
+.stats b { display: block; font-family: var(--f-display); font-weight: 800; font-size: 28px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.stats div > span { font-size: 13px; color: var(--muted); }
+
+/* inline keyboard */
+.kbd { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; width: 100%; }
+.kbd a, .kbd button, .kbd span {
+  display: block; text-align: center; padding: 10px 8px; border-radius: 10px; border: 0;
+  background: var(--kbd-bg); color: #FFFFFF; text-decoration: none; font: 500 16px/1.3 var(--f-tg);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); cursor: pointer; transition: transform .12s ease, filter .12s ease;
+}
+.kbd a:hover, .kbd button:hover { filter: brightness(1.06); }
+.kbd a:active, .kbd button:active { transform: scale(.98); }
+.kbd .main { grid-column: 1 / -1; background: var(--tg); color: var(--tg-ink); font-weight: 600; font-size: 17px; padding: 14px 8px; }
+.kbd span.off { cursor: default; opacity: .85; }
+
+/* experience */
+.job { display: grid; gap: 2px; margin-bottom: 8px; }
+.job b { font-family: var(--f-display); font-weight: 600; font-size: 19px; }
+.job span { font-size: 14px; color: var(--muted); }
+.clients li { display: grid; grid-template-columns: 130px 1fr; gap: 12px; padding-block: 8px; border-top: 1px solid var(--line); }
+.clients li:first-child { border-top: 0; }
+.clients b { font-weight: 600; }
+.nda { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 4px; font-family: var(--f-mono); font-size: 11px; color: var(--label); border: 1px solid var(--line); vertical-align: 2px; }
+
+.past li { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding-block: 8px; border-top: 1px solid var(--line); }
+.past li:first-child { border-top: 0; }
+.past .y { font-family: var(--f-mono); font-size: 13px; color: var(--muted); padding-top: 2px; font-variant-numeric: tabular-nums; }
+.past b { font-weight: 600; }
+
+/* cases */
+.nums.n5 > div:last-child { grid-column: span 2; }
+.case-n { font-family: var(--f-mono); font-size: 12px; color: var(--tg); margin-bottom: 4px; }
+.case-k { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--label); margin: 14px 0 4px; }
+.nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 6px; }
+.nums div { background: var(--tg-soft); border-radius: 10px; padding: 10px 12px; min-width: 0; }
+.nums b { display: block; font-family: var(--f-display); font-weight: 800; font-size: 26px; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.nums span { font-size: 13px; color: var(--muted); hyphens: auto; overflow-wrap: break-word; }
+
+/* copilot */
+.jobs li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; padding-block: 7px; border-top: 1px solid var(--line); }
+.jobs li:first-child { border-top: 0; }
+.jobs li::before { content: ""; width: 8px; height: 8px; margin: 8px 0 0 6px; border-radius: 50%; background: var(--good); box-shadow: 0 0 0 4px color-mix(in srgb, var(--good) 18%, transparent); }
+.week { margin-top: 10px; display: grid; gap: 6px; }
+.week-bar { position: relative; height: 22px; border-radius: 8px; background: var(--line); overflow: hidden; display: grid; grid-template-columns: repeat(5, 1fr); }
+.week-bar span { border-left: 2px solid var(--bubble); position: relative; z-index: 1; }
+.week-days { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: -2px; font-size: 13px; font-weight: 500; color: var(--muted); text-align: center; }
+.week-bar span:first-child { border-left: 0; }
+.week-fill { position: absolute; inset: 0 auto 0 0; width: 22.5%; background: var(--tg); border-radius: 8px 0 0 8px; transform-origin: left; }
+.week-cap { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.week-cap b { color: var(--tg); }
+
+/* products */
+.prod { width: 100%; padding: 0; overflow: hidden; }
+.shot { min-width: 0; contain: inline-size; height: 150px; border-bottom: 1px solid var(--line); position: relative; overflow: hidden; background: color-mix(in srgb, var(--tg) 6%, var(--bubble)); }
+.prod-in { padding: 12px 14px 8px; }
+.prod h3 { font-size: 20px; margin-bottom: 2px; }
+.more { margin-top: 10px; width: 100%; padding: 9px; border-radius: 10px; border: 0; background: var(--tg-soft); color: var(--tg); font: 500 15px var(--f-body); cursor: pointer; }
+.more::after { content: " ↓"; }
+.more[aria-expanded="true"]::after { content: " ↑"; }
+.detail { overflow: hidden; }
+.detail-in { padding-top: 6px; }
+
+/* mock: creative tools */
+.m-ct { min-width: 0; display: flex; gap: 10px; align-items: flex-end; justify-content: center; height: 100%; padding: 18px; }
+.m-ct div { max-height: 100%; min-width: 0; border: 2px dashed var(--tg); border-radius: 4px; display: grid; place-items: center; font-family: var(--f-mono); font-size: 11px; color: var(--tg); background: var(--bubble); }
+/* mock: conversionpulse */
+.m-cp { height: 100%; padding: 18px; display: grid; gap: 8px; align-content: center; }
+.m-cp .url { display: flex; gap: 6px; }
+.m-cp .url span { flex: 1; min-width: 0; padding: 7px 10px; border-radius: 8px; background: var(--bubble); border: 1px solid var(--line); font-family: var(--f-mono); font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; }
+.m-cp .url i { flex: none; padding: 7px 10px; border-radius: 8px; background: var(--tg); color: var(--tg-ink); font-style: normal; font-size: 12px; font-weight: 600; }
+.m-cp .fix { display: flex; gap: 8px; align-items: center; font-size: 12px; padding: 5px 8px; border-radius: 6px; background: var(--bubble); min-width: 0; }
+.m-cp .fix b { flex: none; font-family: var(--f-mono); font-size: 10px; padding: 1px 5px; border-radius: 4px; color: var(--tg-ink); background: var(--rod); }
+.m-cp .fix b.p2 { background: var(--label); }
+.m-cp .fix span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* mock: meetingOS */
+.m-mo { height: 100%; padding: 14px 18px; display: grid; gap: 6px; align-content: center; justify-items: start; font-size: 12px; }
+.m-mo div { background: var(--bubble); border-radius: 10px 10px 10px 3px; padding: 5px 9px; box-shadow: var(--shadow); max-width: 92%; }
+.m-mo .t { font-family: var(--f-mono); font-size: 11px; color: var(--good); }
+
+/* skills */
+.skills li + li { margin-top: 12px; }
+.skills b { display: block; font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chips span { font-size: 13px; padding: 3px 9px; border-radius: 99px; background: var(--tg-soft); color: var(--ink); }
+
+/* bottom input */
+.input { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; background: var(--bar); backdrop-filter: blur(12px); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.input a { max-width: var(--col); margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 10px 16px; color: var(--label); text-decoration: none; font-size: 15px; }
+.input a span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.input a i { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--tg); color: var(--tg-ink); font-style: normal; font-size: 16px; }
+
+.foot { justify-self: center; margin-top: 18px; font-size: 13px; text-align: center; padding: 3px 12px; border-radius: 99px; background: var(--day-bg); color: var(--day-ink); }
+
+@media (max-width: 600px) {
+  .top-cta { width: 40px; height: 40px; padding: 0; justify-content: center; }
+  .top-cta span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .acts { gap: 2px; }
+  .who b { font-size: 15px; }
+  .who span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .photo { width: 42px; height: 42px; }
+  .hero { padding: 16px 16px 8px; }
+  .stats { grid-template-columns: 1fr; }
+  .stats div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+  .kbd { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nums, .nums.n5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nums.n5 > div:last-child { grid-column: auto; }
+  .nums.n5 > div:first-child { grid-column: 1 / -1; }
+  .clients li, .past li { grid-template-columns: 1fr; gap: 2px; }
+  .row > .ava { display: none; }
+  .spacer { display: none; }
+  .you { max-width: 88%; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head><body>
+
+<header class="top">
+  <div class="top-in">
+    <button class="photo" type="button" id="photoBtn" aria-label="Открыть фото Родиона">
+      <img src="photo.jpg" alt="" onerror="this.remove()">
+      <span aria-hidden="true">РА</span>
+    </button>
+    <div class="who">
+      <b>Родион Аветисов</b>
+      <span id="status">был недавно · открыт к предложениям</span>
+    </div>
+    <div class="acts">
+      <a class="ico" href="tel:+79310083804" aria-label="Позвонить: +7 931 008-38-04" title="Позвонить: +7 931 008-38-04">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h3.5l1.6 4.2-2.1 1.4a11 11 0 0 0 6.4 6.4l1.4-2.1L20 15.5V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z"/></svg>
+      </a>
+      <a class="top-cta" href="https://t.me/Lorolan" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1 .4-1 1.8.1 2.1l4.6 1.4 1.8 5.6c.3.9 1.4 1.1 2 .4l2.6-2.6 4.6 3.4c.8.6 1.9.1 2.1-.9l3-14.9c.2-1.1-.9-2-1.9-1.6zM9.6 14.3l8.2-7.4-6.3 8.3-.3 2.9-1.6-3.8z"/></svg>
+        <span>Написать</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="lightbox" id="photoBox" hidden>
+  <div class="profile" role="dialog" aria-modal="true" aria-label="Профиль Родиона Аветисова">
+    <button class="lb-close" type="button" id="photoClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    <div class="pf-head">
+      <div class="pf-photo"><img src="photo.jpg" alt="Родион Аветисов" onerror="this.remove()"><span aria-hidden="true">РА</span></div>
+      <b>Родион Аветисов</b>
+      <span>был недавно · открыт к предложениям</span>
+      <div class="pf-acts">
+        <a href="https://t.me/Lorolan" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>Чат</a>
+        <a href="tel:+79310083804" id="pfCall"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h3.5l1.6 4.2-2.1 1.4a11 11 0 0 0 6.4 6.4l1.4-2.1L20 15.5V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z"/></svg>Звонок</a>
+        <a href="#cases" class="pf-go"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Кейсы</a>
+        <a href="Avetisov.R.pdf" download="Avetisov.R.pdf"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg>Резюме</a>
+      </div>
+    </div>
+    <ul class="pf-info">
+      <li><a class="v" href="tel:+79310083804" id="pfPhone">+7 931 008-38-04</a><span class="k">Телефон</span></li>
+      <li><a class="v" href="https://t.me/Lorolan" target="_blank" rel="noopener">@Lorolan</a><span class="k">Имя пользователя</span></li>
+      <li><span class="v">Ведущий digital project manager в performance. Делаю так, чтобы рекламный бюджет приносил доход.</span><span class="k">О себе</span></li>
+      <li><span class="v">Санкт-Петербург</span><span class="k">Город</span></li>
+    </ul>
+    <ul class="pf-list">
+      <li><a href="#experience" class="pf-go"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span><b>200+ млн ₽</b> рекламный бюджет в месяц</span></a></li>
+      <li><a href="#cases" class="pf-go"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-6 4 4 6-7"/><path d="M15 8h5v5"/></svg><span><b>+390%</b> продажи вкладов в мобайле</span></a></li>
+      <li><a href="#cases" class="pf-go"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-6 4 4 6-7"/><path d="M15 8h5v5"/></svg><span><b>×3,7</b> продажи в B2B-кейсе</span></a></li>
+      <li><a href="#copilot" class="pf-go"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span><b>150 часов</b> рутины отдал ассистенту</span></a></li>
+      <li><a href="#products" class="pf-go"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/></svg><span><b>3</b> собственных продукта</span></a></li>
+      <li><a href="#experience" class="pf-go"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span><b>14</b> отраслей бизнеса в портфолио</span></a></li>
+    </ul>
+    <ul class="pf-list">
+      <li><button type="button" id="pfShare"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5l6 6-6 6"/><path d="M20 11H11a7 7 0 0 0-7 7"/></svg><span>Поделиться контактом</span></button></li>
+      <li><button type="button" id="pfBlock" class="danger"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></svg><span>Заблокировать</span></button></li>
+    </ul>
+    <div class="pf-toast" id="pfToast" role="status" hidden></div>
+  </div>
+</div>
+
+<main class="feed" id="feed" lang="ru">
+
+  <!-- ===== Первый экран ===== -->
+  <span class="day" id="start">Сегодня</span>
+  <div class="row">
+    <span class="ava" aria-hidden="true">PM</span>
+    <div class="stack">
+      <div class="msg a"><span class="name">PM Copilot</span>Сводка готова. Сегодня вместо отчёта по кампаниям знакомлю вас с тем, кто меня собрал.<span class="time">19:00</span></div>
+      <div class="msg last hero a">
+        <div class="meta"><b>Родион Аветисов</b> · ведущий digital project manager в performance · Санкт-Петербург</div>
+        <h1>Делаю так, чтобы рекламный бюджет приносил доход, а&nbsp;не&nbsp;оставался в&nbsp;<s>красивых отчётах</s>.</h1>
+        <div class="lede lede-stack"><p>Финтех, e-com, EdTech, веб и мобайл: ниша для меня не главное.</p><p>Управляю экономикой кампаний, координирую команду, выстраиваю коммуникацию со стейкхолдерами и улучшаю процессы.</p><p>За рутину не держусь: автоматизирую всё, до чего дотягиваются руки.</p></div>
+        <div class="stats-k">Работаем на результат</div>
+        <div class="stats">
+          <div><b><span class="count" data-to="200">200</span>+ млн ₽</b><span>рекламный бюджет в месяц на проекте под моим управлением</span></div>
+          <div><b><span class="count" data-to="8">8</span>+ лет</b><span>в digital-маркетинге</span></div>
+          <div><b><span class="count" data-to="14">14</span> отраслей</b><span>бизнеса, в которых делал маркетинг</span></div>
+        </div>
+        <span class="time">19:01</span>
+      </div>
+      <nav class="kbd a" aria-label="Разделы">
+        <a class="main" href="https://t.me/Lorolan" target="_blank" rel="noopener">Написать Родиону в Telegram</a>
+        <a href="#about">Обо мне</a>
+        <a href="#experience">Опыт</a>
+        <a href="#cases">Кейсы</a>
+        <a href="#copilot">PM Copilot</a>
+        <a href="#products">Продукты</a>
+        <a href="#skills">Навыки</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===== Обо мне ===== -->
+  <span class="day" id="about">Обо мне</span>
+  <div class="you">Расскажи о себе<span class="time">19:02</span></div>
+  <div class="row">
+    <span class="ava rod" aria-hidden="true">РА</span>
+    <div class="stack">
+      <div class="msg"><span class="name r">Родион</span>
+        <p>Управляю крупными рекламными проектами на стороне агентства: от медиаплана и запуска до выручки, ДРР и сложных разговоров с клиентом. Контекст, таргет, медийка, CRM, mobile и инфлюенсеры у меня в одном плане.</p>
+        <p>Работал с финтехом, e-com, EdTech, мобильными продуктами и B2B. В финтехе разбираюсь не только по брифу: сам слежу за рынком и инвестирую.</p>
+        <p>Стараюсь поймать проблему заранее, а не объяснять её клиенту потом, поэтому проверяю KPI и медиапланы на берегу.</p>
+        <p>За последний год собрал несколько ИИ-инструментов: они готовят сводки и постмиты и освобождают время на решения, команду и разговор с клиентом.</p>
+        <p><b>Ищу работу, где нужно отвечать за большое digital-направление, его результат и команду.</b></p>
+        <span class="time">19:03</span>
+      </div>
+      <div class="msg"><h4 style="margin-top:0">Как я работаю</h4>
+        <ul class="dash">
+          <li>Сначала разбираю экономику проекта: выручка, ДРР, что мешает и где можно вырасти.</li>
+          <li>Свожу все каналы в один план, а не веду каждый в отдельном отчёте.</li>
+          <li>Ищу слабые места в KPI и медиаплане до запуска, а не после.</li>
+          <li>Рутину отдаю автоматике, а ключевые решения принимаю сам.</li>
+        </ul>
+        <span class="time">19:03</span>
+      </div>
+      <div class="msg last"><h4 style="margin-top:0">Чем могу быть полезен</h4>
+        <ul class="ticks">
+          <li><b>Медиапланирование и бюджет.</b> Составляю медиапланы по каналам, слежу за расходом бюджета по план-факту. При отклонениях корректирую план.</li>
+          <li><b>План и KPI.</b> Оцениваю, достижимы ли цели при заданных бюджете, сроках, каналах. Раскладываю цели по каналам, фиксирую риски, довожу проект до согласованного плана.</li>
+          <li><b>Эффективность performance-каналов.</b> Оцениваю каналы по выручке, ДРР, другим согласованным KPI. Помогаю команде принимать решения по итогам кампаний, а не по отдельным метрикам.</li>
+          <li><b>Конверсия сайта и воронки.</b> Нахожу, на каком шаге посетители уходят с сайта без заявки или покупки. Составляю список правок для посадочных страниц, начинаю с тех, что дадут больше всего заявок. Слежу, чтобы сайт, реклама, аналитика менялись согласованно.</li>
+          <li><b>Работа с подрядчиками.</b> Ставлю задачи подрядчикам по сайту, рекламным каналам. Веду их от брифа до результата: контролирую сроки, качество, KPI.</li>
+          <li><b>Перезапуск проблемных проектов.</b> Нахожу узкие места в процессах, медиаплане, аналитике или коммуникации. Собираю план действий, синхронизирую всех участников.</li>
+          <li><b>Отчётность и прозрачность.</b> Выстраиваю регулярные отчёты по бюджету, KPI, рискам, следующим шагам, чтобы руководитель или клиент мог быстро принять решение.</li>
+          <li><b>Автоматизация.</b> Убираю ручную работу из отчётности, сбора данных, повторяющихся задач с помощью скриптов, ИИ-инструментов.</li>
+        </ul>
+        <span class="time">19:04</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Опыт ===== -->
+  <span class="day" id="experience">Опыт</span>
+  <div class="you">Где работаешь сейчас?<span class="time">19:05</span></div>
+  <div class="row">
+    <span class="ava rod" aria-hidden="true">РА</span>
+    <div class="stack">
+      <div class="msg wide"><span class="name r">Родион</span>
+        <div class="job"><b>E-PROMO</b><span>ведущий digital project manager · апрель 2021 — сейчас</span></div>
+        <p class="lede">Performance-агентство полного цикла. За 5,5 лет вырос до ведущего PM на крупных performance-проектах в финтехе, e-com и mobile.</p>
+        <h4>Что делаю</h4>
+        <ul class="dash">
+          <li>Веду 1–2 проекта с рекламным бюджетом 100–200+ млн ₽ в месяц и отвечаю перед клиентом за план по выручке и ДРР.</li>
+          <li>Вместе с командой и клиентом решаю, как делить бюджет между контекстом, таргетом, медийкой, CRM, контентом и инфлюенсерами, и слежу, чтобы каналы работали на одну цель.</li>
+          <li>Координирую специалистов разных направлений, а для тендеров собираю расширенную рабочую группу: ставлю задачи, слежу за сроками и качеством запуска.</li>
+          <li>Объясняю и отстаиваю решения перед клиентом там, где ошибка стоит миллионы.</li>
+          <li>Запускаю новых клиентов: разбираю КП и медиаплан, нахожу нестыковки в KPI до того, как они станут проблемой.</li>
+          <li>Принимаю проекты от уходящих PM без просадки для клиента.</li>
+        </ul>
+        <span class="time">19:06</span>
+      </div>
+      <div class="msg wide last"><h4 style="margin-top:0">С кем работал <span class="nda">NDA</span></h4>
+        <p class="em" style="margin-bottom:6px">Названия не пишу, но по описанию многие узнают.</p>
+        <ul class="clients">
+          <li><b>Финтех</b><span>крупнейшая российская биржа и её финансовый маркетплейс, цифровой банк</span></li>
+          <li><b>Страхование</b><span>два федеральных страховщика</span></li>
+          <li><b>E-com и ритейл</b><span>крупнейший DIY-ритейлер, федеральная сеть косметики и парфюмерии</span></li>
+          <li><b>B2B SaaS</b><span>сервис онлайн-бухгалтерии для бизнеса</span></li>
+          <li><b>EdTech</b><span>международная онлайн-школа программирования для детей</span></li>
+        </ul>
+        <span class="time">19:06</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Кейсы ===== -->
+  <span class="day" id="cases">Кейсы</span>
+  <div class="you">А результаты покажешь?<span class="time">19:07</span></div>
+  <div class="row">
+    <span class="ava rod" aria-hidden="true">РА</span>
+    <div class="stack">
+      <div class="msg wide"><span class="name r">Родион</span>
+        <div class="case-n">Кейс 1 · финтех · веб и мобильное приложение</div>
+        <h3>Вклады: продажи ×4, когда приложение пропало из крупного стора</h3>
+        <p class="em">Банк, реклама вкладов в вебе и в приложении.</p>
+        <div class="case-k">Задача</div>
+        <p>Кратно нарастить открытия вкладов без опоры на дорогой небрендовый поиск и удержать стоимость привлечения под контролем.</p>
+        <div class="case-k">Результат</div>
+        <div class="nums">
+          <div><b>×4</b><span>продажи в вебе за год при бюджете ×2,5</span></div>
+          <div><b>+390%</b><span>продажи в мобайле, установки +310%</span></div>
+          <div><b>−44%</b><span>стоимость привлечения в мобайле к плану</span></div>
+          <div><b>−24%</b><span>CAC в вебе ниже плана</span></div>
+          <div><b>52,2%</b><span>всех открытых вкладов пришли из рекламы приложения</span></div>
+          <div><b>+22,5%</b><span>к маржинальности после CPP-страниц и сегментации офферов</span></div>
+        </div>
+        <button class="more" type="button" aria-expanded="false" aria-controls="c1">Что мешало и что сделали</button>
+        <div class="detail" id="c1" hidden><div class="detail-in">
+          <div class="case-k">Что мешало</div>
+          <ul class="dash">
+            <li>приложение пропало из одного из крупных сторов: мобильные установки и конверсии упали на 80%;</li>
+            <li>небрендовый поиск в Директе перегрет и упёрся в потолок, а знание бренда в 2,5 раза ниже, чем у конкурентов;</li>
+            <li>у альтернативных сторов мало инвентаря, трекинг блокировался, цена продажи в DSP-сетях скакала;</li>
+            <li>сменился KPI: раньше нужен был объём в рамках лимита CPS, теперь объём с ростом выручки.</li>
+          </ul>
+          <div class="case-k">Моя роль</div>
+          <p>Предложил клиенту сделать ставку на мобильное приложение и аудиторные сегменты вместо дорогого поиска и защитил рост мобильного бюджета. Вместе с клиентом пересобрали KPI под выручку. Дальше запустили кастомные страницы приложения (CPP) и разные офферы под сегменты, а веб-контекст перевели в поддерживающий режим.</p>
+          <div class="case-k">Ещё цифры</div>
+          <ul class="dash">
+            <li>бюджет мобильного канала вырос на 762%;</li>
+            <li>в вебе открытых вкладов на 36% больше, чем годом раньше;</li>
+            <li>21% вкладов в вебе дали аудиторные сегменты, их трафик на 40% дешевле базового;</li>
+            <li>рост быстрее категории: конверсии +34% за квартал при бюджете +31%.</li>
+          </ul>
+        </div></div>
+        <span class="time">19:08</span>
+      </div>
+      <div class="msg wide">
+        <div class="case-n">Кейс 2 · финтех · займы</div>
+        <h3>Займы: от потока лидов к реальным выдачам и прибыли</h3>
+        <p class="em">Почти весь трафик небрендовый (99,7%), модерация жёсткая.</p>
+        <div class="case-k">Задача</div>
+        <p>Выстроить сквозную аналитику и перейти от накопления лидов к управляемой марже.</p>
+        <div class="case-k">Результат</div>
+        <div class="nums">
+          <div><b>×3</b><span>выдачи займов, декабрь к январю</span></div>
+          <div><b>34 → 54%</b><span>ROI на небрендовом трафике</span></div>
+          <div><b>×2</b><span>бюджет, а выручка росла быстрее</span></div>
+          <div><b>−61%</b><span>CPS после отсева аудитории с высокой долговой нагрузкой</span></div>
+          <div><b>×2</b><span>конверсия в выдачу выше, чем у прямых конкурентов</span></div>
+          <div><b>+151%</b><span>выдачи за 3 месяца после передачи данных из CRM</span></div>
+        </div>
+        <button class="more" type="button" aria-expanded="false" aria-controls="c2">Что мешало и что сделали</button>
+        <div class="detail" id="c2" hidden><div class="detail-in">
+          <div class="case-k">Что мешало</div>
+          <ul class="dash">
+            <li>Яндекс не видел реальных выдач и учился на лидах и кликах;</li>
+            <li>фактический доход не передавался в рекламу, поэтому оптимизировать по рентабельности было нечем.</li>
+          </ul>
+          <div class="case-k">Моя роль</div>
+          <p>С мая 2025 предложил клиенту и довёл с командой четыре изменения:</p>
+          <ul class="dash" style="margin-top:6px">
+            <li>передавать в Директ фактические выдачи из CRM: выдачи +151%, бюджет +168% за 3 месяца, во втором полугодии выдачи ×2,7;</li>
+            <li>отдать около 10% бюджета на DMP-сегменты и отсекать людей с высокой долговой нагрузкой: CPS −61%;</li>
+            <li>подключить аудитории Яндекса по финпродуктам: ROI +30%;</li>
+            <li>уйти с «Максимума конверсий» на целевую долю рекламных расходов: конверсия +23%, цена целевого действия −15%, ROI +8 п.п.</li>
+          </ul>
+          <p style="margin-top:8px" class="lede">Конверсия в выдачу в 2 раза выше, чем у прямых конкурентов по квартальным бенчмаркам Яндекса.</p>
+        </div></div>
+        <span class="time">19:09</span>
+      </div>
+      <div class="msg wide last">
+        <div class="case-n">Кейс 3 · B2B SaaS</div>
+        <h3>Онлайн-бухгалтерия для бизнеса: бюджет ×3 на узком рынке</h3>
+        <p class="em">Реклама для бизнеса: долгие сделки, узкая аудитория, считаем не заявки, а продажи.</p>
+        <div class="case-k">Задача</div>
+        <p>Узкий B2B-сегмент и сложная посадочная. Широкие запросы вели нецелевой трафик, квалифицированный лид дорожал.</p>
+        <div class="case-k">Моя роль</div>
+        <p>Предложил клиенту сначала разобраться, что на самом деле волнует его покупателей (налоги, блокировки счетов, зарплаты), и добился отдельных посадочных страниц под узкие сегменты. Поставил команде задачу на фид и DSA под микрозапросы. Согласовал с клиентом передачу квалифицированных лидов из CRM в рекламные кабинеты, чтобы кампании учились на сделках, а не на кликах.</p>
+        <div class="case-k">Результат</div>
+        <div class="nums n5">
+          <div><b>×3,7</b><span>продажи</span></div>
+          <div><b>×3</b><span>бюджет</span></div>
+          <div><b>×2</b><span>квалифицированные заявки</span></div>
+          <div><b>×2</b><span>конверсия в продажу</span></div>
+          <div><b>−18%</b><span>стоимость продажи</span></div>
+        </div>
+        <span class="time">19:09</span>
+      </div>
+    </div>
+  </div>
+  <div class="you">А что было до E-PROMO?<span class="time">19:10</span></div>
+  <div class="row">
+    <span class="ava rod" aria-hidden="true">РА</span>
+    <div class="stack">
+      <div class="msg wide last"><span class="name r">Родион</span>
+        <ul class="past">
+          <li><span class="y">2020–2021</span><span><b>Vice Code</b>, старший маркетолог: конверсия сайтов +30% в среднем, рекорд с 7% до 14%</span></li>
+          <li><span class="y">2019–2020</span><span><b>Height Line</b>, project manager в digital-агентстве: медиапланы, KPI, комплексный маркетинг</span></li>
+          <li><span class="y">2016–2017</span><span><b>ЕВА и KARAT</b>, маркетолог на производстве: каналы, подрядчики, сайт с нуля</span></li>
+          <li><span class="y">2015</span><span><b>СПбГЭУ</b>, экономика</span></li>
+        </ul>
+        <span class="time">19:10</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PM Copilot ===== -->
+  <span class="day" id="copilot">PM Copilot</span>
+  <div class="you">Что за PM Copilot?<span class="time">19:11</span></div>
+  <div class="row">
+    <span class="ava" aria-hidden="true">PM</span>
+    <div class="stack">
+      <div class="msg wide"><span class="name">PM Copilot</span>
+        <h3>Это я. ИИ-ассистент, который забрал у Родиона 9 часов рутины в неделю.</h3>
+        <div class="case-k">Проблема</div>
+        <p>PM на крупном клиенте тонет в сводках, постмитах и таблицах. На решения остаётся время после 18:00.</p>
+        <div class="case-k">Решение</div>
+        <p>Родион собрал меня на Hermes Agent и подключил к Google-таблицам, календарю, почте и документам. Работаю по расписанию и сам повторяю запуск, если задача упала из-за временного сбоя. Решения по бюджетам и приоритетам по-прежнему за ним.</p>
+        <span class="time">19:11</span>
+      </div>
+      <div class="msg wide"><h4 style="margin-top:0">Что я делаю сам</h4>
+        <ul class="jobs">
+          <li><span><b>Встречи:</b> запись, транскрипция, постмит, задачи сами попадают в таблицу.</span></li>
+          <li><span><b>Ежедневные сводки:</b> утром задачи к закрытию, днём план, вечером сводка для клиента и итог дня.</span></li>
+          <li><span><b>PM Hub:</b> дайджесты, задачи-кандидаты, открытые вопросы.</span></li>
+          <li><span><b>Недельный отчёт по контексту:</b> сборка, автопроверка, контроль сроков.</span></li>
+          <li><span><b>Клиентские отчёты:</b> недельные и ежедневные сводки.</span></li>
+        </ul>
+        <span class="time">19:12</span>
+      </div>
+      <div class="msg wide last">
+        <p>Итог: за 4 месяца я вернул Родиону <b>около 150 часов</b>, это примерно <b>9 часов в неделю</b>. Больше рабочего дня, который раньше уходил на перенос цифр из таблицы в таблицу.</p>
+        <div class="week" aria-label="9 часов из 40-часовой рабочей недели">
+          <div class="week-bar"><div class="week-fill" id="weekFill"></div><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="week-days" aria-hidden="true"><span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span></div>
+          <div class="week-cap"><span><b>9 ч</b> теперь делаю я</span><span>из 40 ч рабочей недели</span></div>
+        </div>
+        <h4>Для чего я освободил это время?</h4>
+        <ul class="dash">
+          <li>чтобы больше разбирать цифры вместе с клиентом, а не пересказывать их в отчётах;</li>
+          <li>чтобы успевать сесть со специалистами и разобрать сложный запуск, а не только раздать задачи;</li>
+          <li>чтобы создавать новые инструменты: так появились Creative Tools, ConversionPulse и meetingOS;</li>
+          <li>чтобы разбираться в ИИ-агентах и аналитике, следить за рынком;</li>
+          <li>и чтобы иногда закрывать ноутбук до 19:00. Иногда.</li>
+        </ul>
+        <span class="time">19:12</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <span class="ava rod" aria-hidden="true">РА</span>
+    <div class="stack">
+      <div class="msg last"><span class="name r">Родион</span>Он не ходит в отпуск и не забывает, о чём договорились на созвоне. Я тоже не забываю, но теперь у меня есть доказательства.<span class="time">19:13</span></div>
+    </div>
+  </div>
+
+  <!-- ===== Продукты ===== -->
+  <span class="day" id="products">Продукты</span>
+  <div class="you">Что ещё сделал?<span class="time">19:14</span></div>
+  <div class="row">
+    <span class="ava rod" aria-hidden="true">РА</span>
+    <div class="stack">
+      <div class="msg"><span class="name r">Родион</span>Инструменты, которые я собрал для маркетинговых команд, когда ручная работа начала съедать слишком много времени и денег.<span class="time">19:14</span></div>
+
+      <article class="msg prod">
+        <div class="shot" aria-hidden="true"><div class="m-ct">
+          <div style="width:20%;aspect-ratio:1">1:1</div><div style="width:32%;aspect-ratio:16/9">16:9</div><div style="width:12%;aspect-ratio:9/16">9:16</div><div style="width:26%;aspect-ratio:728/150">728×90</div>
+        </div></div>
+        <div class="prod-in">
+          <h3>Creative Tools</h3>
+          <p class="em">Все требования к баннерам с 40+ площадок в одном окне.</p>
+          <button class="more" type="button" aria-expanded="false" aria-controls="p1">Подробнее</button>
+          <div class="detail" id="p1" hidden><div class="detail-in"><ul class="defs">
+            <li><b>Боль:</b> у каждой площадки свои размеры и правила. ТЗ дизайнеру собирали вручную, макеты летели на модерации.</li>
+            <li><b>Решение:</b> веб-сервис для клиентского сервиса, медийки, стратегии и контекста. Сам собирает ТЗ и показывает, как макет обрежется под каждый формат.</li>
+            <li><b>Результат:</b> ТЗ дизайнеру за 5 минут со всеми нужными вводными вместо 40 минут поиска техтребований по площадкам. Меньше ошибок в требованиях и меньше отклонений на модерации.</li>
+          </ul></div></div>
+          <span class="time">19:15</span>
+        </div>
+      </article>
+
+      <article class="msg prod">
+        <div class="shot" aria-hidden="true"><div class="m-cp">
+          <div class="url"><span>https://ваш-лендинг.ru</span><i>Проверить</i></div>
+          <div class="fix"><b>P1</b><span>Заголовок не говорит, что вы продаёте: готовый вариант текста</span></div>
+          <div class="fix"><b>P1</b><span>Первый экран грузится 4,8 с на мобильном</span></div>
+          <div class="fix"><b class="p2">P2</b><span>Кнопка теряется на фоне баннера</span></div>
+        </div></div>
+        <div class="prod-in">
+          <h3>ConversionPulse</h3>
+          <p class="em">Вставляете ссылку на сайт, через 3–5 минут получаете готовый план правок.</p>
+          <button class="more" type="button" aria-expanded="false" aria-controls="p2">Подробнее</button>
+          <div class="detail" id="p2" hidden><div class="detail-in"><ul class="defs">
+            <li><b>Боль:</b> трафик стоит дорого, а сайт, который не конвертирует, съедает бюджет молча. Обычный аудит выдаёт общие советы вроде «усильте УТП», и непонятно, что с ними делать.</li>
+            <li><b>Решение:</b> сервис проверяет скорость через Google PageSpeed, смотрит на страницу глазами посетителя и разбирает тексты с помощью ИИ. На выходе не список проблем, а план: что поменять, готовый текст для замены и приоритет каждой правки.</li>
+            <li><b>Результат:</b> отчёт за 3–5 минут, первая проверка бесплатно и без регистрации. Маркетолог сразу видит, с чего начать, и не собирает правки вручную.</li>
+          </ul></div></div>
+          <span class="time">19:15</span>
+        </div>
+      </article>
+
+      <article class="msg prod last">
+        <div class="shot" aria-hidden="true"><div class="m-mo">
+          <div>Созвон с клиентом, 42 мин · транскрипт получен</div>
+          <div><b>Договорились:</b> тест новой связки в РСЯ, отчёт по ДРР к пятнице</div>
+          <div class="t">+ 3 задачи поставлены в трекер</div>
+        </div></div>
+        <div class="prod-in">
+          <h3>meetingOS</h3>
+          <p class="em">Telegram-бот, который после созвона пишет постмит, превращает договорённости в задачи и ставит их.</p>
+          <button class="more" type="button" aria-expanded="false" aria-controls="p3">Подробнее</button>
+          <div class="detail" id="p3" hidden><div class="detail-in"><ul class="defs">
+            <li><b>Боль:</b> после пятого созвона за день договорённости начинают теряться.</li>
+            <li><b>Решение:</b> сервис записи отправляет транскрипт в бота. Бот не просто пересказывает разговор, а разбирает его: с кем говорили, о чём договорились, что подготовить к следующей встрече. Из договорённостей сам формирует задачи и ставит их туда, где работает команда: в Битрикс24, Trello или хоть в Google-таблицу, чтобы ничего не повисло в воздухе. Постмит остаётся скопировать в чат с клиентом.</li>
+            <li><b>Результат:</b> тот же механизм работает внутри PM Copilot, но meetingOS можно использовать отдельно: подключить запись созвона и получать готовый постмит в Telegram без настройки всего ассистента.</li>
+          </ul></div></div>
+          <span class="time">19:16</span>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ===== Навыки ===== -->
+  <span class="day" id="skills">Навыки</span>
+  <div class="you">Навыки списком, для HR<span class="time">19:17</span></div>
+  <div class="row">
+    <span class="ava" aria-hidden="true">PM</span>
+    <div class="stack">
+      <div class="msg wide last"><span class="name">PM Copilot</span>
+        <ul class="skills">
+          <li><b>Клиент и бизнес</b><div class="chips"><span>защита стратегии и медиаплана</span><span>переговоры с клиентом</span><span>планирование выручки и ДРР</span><span>работа с данными CRM</span></div></li>
+          <li><b>Управление проектами</b><div class="chips"><span>управление командой специалистов</span><span>подготовка к тендерам</span><span>запуск новых клиентов</span><span>медиапланирование</span><span>работа с подрядчиками</span><span>договоры и закрытие месяца</span></div></li>
+          <li><b>Рекламные каналы</b><div class="chips"><span>Яндекс Директ</span><span>VK Реклама</span><span>мобильный UA (20+ рекламных сетей)</span><span>альтернативные магазины приложений</span><span>DSP и медийная реклама</span><span>инфлюенс-маркетинг</span></div></li>
+          <li><b>Метрики и аналитика</b><div class="chips"><span>ДРР</span><span>ROI</span><span>ROMI</span><span>CAC</span><span>CPA</span><span>CPQL</span><span>CPI</span><span>план-факт</span><span>когортный анализ</span><span>A/B-тесты автостратегий</span><span>сквозная аналитика</span><span>кросс-канальная атрибуция</span></div></li>
+          <li><b>Инструменты</b><div class="chips"><span>Google Таблицы</span><span>Яндекс Метрика</span><span>AppsFlyer</span><span>AppMetrica</span><span>Битрикс24</span><span>Trello</span><span>YouGile</span></div></li>
+          <li><b>ИИ и автоматизация</b><div class="chips"><span>ИИ-агенты на Hermes Agent</span><span>агент с памятью по клиентам и проектам</span><span>транскрибация встреч → постмит и задачи в трекере</span><span>сводки и отчёты по расписанию (Python, cron)</span><span>Google API: Таблицы, Календарь, Drive, Gmail, Документы</span><span>перевод внутренних заметок в тексты для клиента</span><span>ИИ-аудит посадочных страниц</span><span>Telegram-боты</span><span>веб-сервисы для команды</span><span>промпт-инжиниринг</span></div></li>
+        </ul>
+        <span class="time">19:17</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Финал ===== -->
+  <span class="day" id="contact">Контакт</span>
+  <div class="row">
+    <span class="ava rod" aria-hidden="true">РА</span>
+    <div class="stack">
+      <div class="msg wide last"><span class="name r">Родион</span>
+        <h3>Дочитали до конца? Значит, есть о чём поговорить.</h3>
+        <p>Если вам нужен человек, который отвечает за выручку и ДРР и при этом держит в порядке работу с клиентом и командой, напишите. Повторяемую рутину тоже разберём.</p>
+        <p class="lede">Отвечаю сам. Бот только поможет не потерять договорённости.</p>
+        <span class="time">19:18</span>
+      </div>
+      <div class="kbd">
+        <a class="main" href="https://t.me/Lorolan" target="_blank" rel="noopener">Написать в Telegram · @Lorolan</a>
+        <a href="Avetisov.R.pdf" download="Avetisov.R.pdf" style="grid-column:1/-1">Скачать резюме PDF</a>
+      </div>
+    </div>
+  </div>
+  <p class="foot">Родион Аветисов · 2026</p>
+</main>
+
+<div class="input">
+  <a href="https://t.me/Lorolan" target="_blank" rel="noopener"><span>Напишите Родиону, отвечает сам, не бот</span><i aria-hidden="true">➤</i></a>
+</div>
+
+<script src="assets/motion.js"></script>
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var M = window.Motion;
+
+  // photo opens on click
+  var box = document.getElementById("photoBox");
+  function closeBox() { box.hidden = true; document.getElementById("photoBtn").focus(); }
+  document.getElementById("photoBtn").addEventListener("click", function () {
+    box.hidden = false; document.getElementById("photoClose").focus();
+    if (window.Motion && !reduce) window.Motion.animate(".profile", { scale: [0.9, 1], opacity: [0, 1] }, { duration: 0.25, ease: [0.2, 0.8, 0.2, 1] });
+  });
+  document.getElementById("photoClose").addEventListener("click", closeBox);
+  box.addEventListener("click", function (e) { if (e.target === box) closeBox(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !box.hidden) closeBox(); });
+  box.querySelectorAll(".pf-go").forEach(function (a) { a.addEventListener("click", function () { box.hidden = true; }); });
+  var toast = document.getElementById("pfToast"), toastTimer;
+  function say(t) { toast.textContent = t; toast.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(function () { toast.hidden = true; }, 2600); }
+  document.getElementById("pfShare").addEventListener("click", function () {
+    var url = location.href.split("#")[0];
+    var done = function () { say("Ссылка на сайт скопирована"); };
+    try { navigator.clipboard.writeText(url).then(done, function () { say(url); }); } catch (e) { say(url); }
+  });
+  document.getElementById("pfBlock").addEventListener("click", function () { say("Не получится. Он ещё может пригодиться вашему бюджету."); });
+
+  // product cards open on click
+  document.querySelectorAll(".more").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var box = document.getElementById(btn.getAttribute("aria-controls"));
+      var open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      btn.textContent = open ? "Подробнее" : "Свернуть";
+      if (!M || reduce) { box.hidden = open; return; }
+      if (open) {
+        M.animate(box, { height: [box.offsetHeight + "px", "0px"], opacity: [1, 0] }, { duration: 0.25 })
+          .then(function () { box.hidden = true; box.style.height = ""; });
+      } else {
+        box.hidden = false;
+        var h = box.scrollHeight;
+        M.animate(box, { height: ["0px", h + "px"], opacity: [0, 1] }, { duration: 0.3, ease: [0.2, 0.8, 0.2, 1] })
+          .then(function () { box.style.height = ""; });
+      }
+    });
+  });
+
+  if (!M || reduce) return;
+  var animate = M.animate, inView = M.inView, stagger = M.stagger;
+
+  // first screen: "typing", then the summary arrives
+  var status = document.getElementById("status");
+  var statusText = status.textContent;
+  status.classList.add("live");
+  status.innerHTML = 'печатает<span class="dots"><i></i><i></i><i></i></span>';
+  animate("#status .dots i", { opacity: [1, 0.2, 1] }, { duration: 1, repeat: Infinity, delay: stagger(0.15) });
+  animate(".a", { y: [16, 0], opacity: [0.3, 1], scale: [0.98, 1] }, { duration: 0.5, delay: stagger(0.25, { startDelay: 0.2 }), ease: [0.2, 0.8, 0.2, 1] });
+  setTimeout(function () { status.classList.remove("live"); status.textContent = statusText; }, 1600);
+
+  document.querySelectorAll(".count").forEach(function (el) {
+    var to = +el.dataset.to;
+    M.animate(0, to, { duration: 1.2, delay: 0.6, ease: [0.2, 0.8, 0.2, 1], onUpdate: function (v) { el.textContent = Math.round(v); } });
+  });
+
+  // sections: when a question scrolls in, the header shows who is typing the answer
+  var typingTimer;
+  function typing(who) {
+    clearTimeout(typingTimer);
+    status.classList.add("live");
+    status.innerHTML = (who ? who + " " : "") + 'печатает<span class="dots"><i></i><i></i><i></i></span>';
+    animate("#status .dots i", { opacity: [1, 0.2, 1] }, { duration: 1, repeat: Infinity, delay: stagger(0.15) });
+    typingTimer = setTimeout(function () { status.classList.remove("live"); status.textContent = statusText; }, 1400);
+  }
+  document.querySelectorAll(".feed > .you").forEach(function (q) {
+    var next = q.nextElementSibling, name = next && next.querySelector(".name");
+    var who = name && !name.classList.contains("r") ? name.textContent.trim() : "";
+    inView(q, function () { typing(who); }, { margin: "0px 0px -20% 0px" });
+  });
+
+  var fill = document.getElementById("weekFill");
+  inView(fill, function () {
+    animate(fill, { scaleX: [0, 1] }, { duration: 1, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] });
+  });
+})();
+</script>
+</body></html>
